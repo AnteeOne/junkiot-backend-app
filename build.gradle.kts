@@ -12,7 +12,7 @@ plugins {
 group = "tech.antee.junkiot"
 version = "0.0.1"
 application {
-    mainClass.set("antee.tech.ApplicationKt")
+    mainClass.set("tech.antee.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
