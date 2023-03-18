@@ -1,1 +1,1 @@
-rootProject.name = "antee.tech.junkiot-backend-app"
+rootProject.name = "tech.antee.junkiot-backend-app"
