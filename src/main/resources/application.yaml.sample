@@ -1,0 +1,13 @@
+ktor:
+  application:
+    modules:
+      - tech.antee.junkiot.ApplicationKt.module
+  deployment:
+    url: <PASTE_YOUR_URL_HERE>
+    port: <PASTE_YOUR_PORT_HERE>
+  db:
+    url: <PASTE_YOUR_URL_HERE>
+    port: <PASTE_YOUR_PORT_HERE>
+    driver: <PASTE_YOUR_DRIVER_HERE>
+    user: <PASTE_YOUR_USER_HERE>
+    password: <PASTE_YOUR_PASSWORD_HERE>
