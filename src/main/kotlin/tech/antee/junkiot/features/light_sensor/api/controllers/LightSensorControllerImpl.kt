@@ -4,7 +4,7 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.server.websocket.*
 import tech.antee.junkiot.features.light_sensor.api.dtos.AddLightSensorValueDto
 import tech.antee.junkiot.features.light_sensor.api.dtos.LightSensorValueDto
 import tech.antee.junkiot.features.light_sensor.data.daos.LightSensorValuesDaoImpl
@@ -32,5 +32,11 @@ class LightSensorControllerImpl {
             call.respond(HttpStatusCode.BadRequest, "Light density isn't valid!")
         }
 
+    }
+
+    suspend fun lightSensorValuesWebSocket(session: WebSocketServerSession) {
+        repository.flow.collect { values ->
+            session.sendSerialized(values.map { LightSensorValueDto(it.id, it.lx) })
+        }
     }
 }

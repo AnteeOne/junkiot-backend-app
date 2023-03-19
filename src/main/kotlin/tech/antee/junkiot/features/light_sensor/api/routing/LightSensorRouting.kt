@@ -2,6 +2,7 @@ package tech.antee.junkiot.features.light_sensor.api.routing
 
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
+import io.ktor.server.websocket.*
 import tech.antee.junkiot.features.light_sensor.api.controllers.LightSensorControllerImpl
 
 fun Application.configureLightSensorRouting() {
@@ -14,6 +15,9 @@ fun Application.configureLightSensorRouting() {
         }
         post("/controllers/light-sensor/values") {
             controller.addLightSensorValue(call)
+        }
+        webSocket("/controllers/light-sensor/values") {
+            controller.lightSensorValuesWebSocket(this)
         }
     }
 }
