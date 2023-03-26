@@ -6,6 +6,7 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
+import tech.antee.junkiot.features.controll.data.tables.ControllersTable
 import tech.antee.junkiot.features.light_sensor.data.tables.LightSensorValuesTable
 import tech.antee.junkiot.plugins.ktx.getConfigString
 
@@ -17,6 +18,7 @@ fun Application.installDatabase() {
         password = getConfigString("ktor.db.password")
     )
     transaction(database) {
+        SchemaUtils.create(ControllersTable)
         SchemaUtils.create(LightSensorValuesTable)
     }
 }
