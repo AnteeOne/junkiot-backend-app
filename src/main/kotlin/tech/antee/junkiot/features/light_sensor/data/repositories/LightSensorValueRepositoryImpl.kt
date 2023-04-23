@@ -1,4 +1,4 @@
-package tech.antee.junkiot.features.light_sensor.data.repository
+package tech.antee.junkiot.features.light_sensor.data.repositories
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
