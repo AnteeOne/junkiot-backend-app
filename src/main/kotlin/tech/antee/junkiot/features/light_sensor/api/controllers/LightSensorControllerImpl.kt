@@ -10,6 +10,7 @@ import tech.antee.junkiot.features.light_sensor.api.dtos.AddLightSensorValueDto
 import tech.antee.junkiot.features.light_sensor.api.mappers.LightSensorDataMapper
 import tech.antee.junkiot.features.light_sensor.data.daos.LightSensorValuesDaoImpl
 import tech.antee.junkiot.features.light_sensor.data.repositories.LightSensorValueRepositoryImpl
+import tech.antee.junkiot.features.light_sensor.di.LightSensorComponent
 
 class LightSensorControllerImpl {
 
@@ -40,6 +41,7 @@ class LightSensorControllerImpl {
                 controllerId = addDto.controllerId
             )
             if (addedValue != null) {
+                LightSensorComponent.lightSensorPredictionService.predict(addedValue)
                 call.respond(mapper.map(addedValue))
             } else {
                 call.respond(HttpStatusCode.BadRequest, "Light sensor value isn't valid!")
@@ -52,6 +54,12 @@ class LightSensorControllerImpl {
 
     suspend fun lightSensorValuesWebSocket(session: WebSocketServerSession) {
         repository.flow.collect { values ->
+            session.sendSerialized(values.map(mapper::map))
+        }
+    }
+
+    suspend fun lightSensorPredictionsValuesWebSocket(session: WebSocketServerSession) {
+        LightSensorComponent.lightSensorPredictionService.predictions.collect { values ->
             session.sendSerialized(values.map(mapper::map))
         }
     }
