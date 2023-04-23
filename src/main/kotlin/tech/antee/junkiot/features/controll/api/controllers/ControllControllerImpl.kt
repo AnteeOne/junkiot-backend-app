@@ -17,7 +17,7 @@ class ControllControllerImpl {
 
     private val mapper: ControllerDataMapper by lazy { ControllerDataMapper() }
 
-    private val repository: ControllerRepository by lazy { ControllerRepositoryImpl(AppComponent.controllerDao) }
+    private val repository: ControllerRepository by lazy { AppComponent.controllerRepository }
 
     suspend fun getControllers(call: ApplicationCall) {
         val values = repository.getAll().map(mapper::map)

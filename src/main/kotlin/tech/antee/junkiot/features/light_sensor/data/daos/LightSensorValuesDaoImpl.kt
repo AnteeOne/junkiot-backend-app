@@ -28,12 +28,13 @@ class LightSensorValuesDaoImpl : LightSensorValuesDao {
     }
 
     override suspend fun getAll(): List<LightSensorValueEntity> = with(LightSensorValuesTable) {
-        dbQuery { selectAll().toList().map(::mapRowToEntity) }
+        dbQuery { selectAll().orderBy(id).toList().map(::mapRowToEntity) }
     }
 
     override suspend fun getAll(controllerId: Int): List<LightSensorValueEntity> = with(LightSensorValuesTable) {
         dbQuery {
             select { LightSensorValuesTable.controllerId eq controllerId }
+                .orderBy(id)
                 .toList()
                 .map(::mapRowToEntity)
         }

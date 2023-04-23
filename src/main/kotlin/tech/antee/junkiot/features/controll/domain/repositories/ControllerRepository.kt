@@ -16,5 +16,7 @@ interface ControllerRepository {
 
     suspend fun update(model: Controller): Boolean
 
+    suspend fun updateOnline(controllerId: Int, isOnline: Boolean): Boolean
+
     suspend fun delete(id: Int): Boolean
 }

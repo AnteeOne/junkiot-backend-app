@@ -27,7 +27,7 @@ class ControllerDaoImpl : ControllerDao {
     }
 
     override suspend fun getAll(): List<ControllerEntity> = with(ControllersTable) {
-        dbQuery { selectAll().toList().map(::mapRowToEntity) }
+        dbQuery { selectAll().orderBy(id).toList().map(::mapRowToEntity) }
     }
 
     override suspend fun update(entity: ControllerEntity): Boolean = with(ControllersTable) {
@@ -38,6 +38,17 @@ class ControllerDaoImpl : ControllerDao {
                     table[controllerType] = entity.controllerType
                     table[name] = entity.name
                     table[isOnline] = entity.isOnline
+                },
+            ) > 0
+        }
+    }
+
+    override suspend fun updateOnline(controllerId: Int, isOnline: Boolean): Boolean = with(ControllersTable) {
+        dbQuery {
+            update(
+                where = { id eq controllerId },
+                body = { table ->
+                    table[ControllersTable.isOnline] = isOnline
                 },
             ) > 0
         }
