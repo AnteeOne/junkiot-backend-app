@@ -4,5 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class AddLightSensorValueDto(
-    val lx: Int
+    val controllerId: Int,
+    val lx: Int,
 )

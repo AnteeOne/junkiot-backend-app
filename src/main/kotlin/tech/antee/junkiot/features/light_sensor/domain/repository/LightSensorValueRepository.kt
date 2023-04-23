@@ -7,11 +7,13 @@ interface LightSensorValueRepository {
 
     val flow: Flow<List<LightSensorValue>>
 
-    suspend fun add(lx: Int): LightSensorValue?
+    suspend fun add(controllerId: Int, lx: Int): LightSensorValue?
 
     suspend fun get(id: Int): LightSensorValue?
 
     suspend fun getAll(): List<LightSensorValue>
+
+    suspend fun getAll(controllerId: Int): List<LightSensorValue>
 
     suspend fun update(model: LightSensorValue): Boolean
 
