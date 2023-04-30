@@ -90,7 +90,7 @@ class LightSensorControllerImpl {
                                 .predictions
                                 .map { list -> list.filter { prediction -> prediction.controllerId == parsedControllerId } }
                                 .collect { values ->
-                                    session.sendSerialized(values.map(mapper::map))
+                                    session.sendSerialized(values.takeLast(1).map(mapper::map))
                                 }
                         }
                         controllerId = parsedControllerId
