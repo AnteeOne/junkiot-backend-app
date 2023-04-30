@@ -34,6 +34,12 @@ class ControllerRepositoryImpl(
     override suspend fun update(model: Controller): Boolean = dao.update(mapper.mapToData(model))
         .also { isUpdated -> if (isUpdated) _flow.value = getAll() }
 
+    override suspend fun updateOnline(
+        controllerId: Int,
+        isOnline: Boolean
+    ): Boolean = dao.updateOnline(controllerId, isOnline)
+        .also { isUpdated -> if (isUpdated) _flow.value = getAll() }
+
     override suspend fun delete(id: Int): Boolean = dao.delete(id)
         .also { isDeleted -> if (isDeleted) _flow.value = getAll() }
 }

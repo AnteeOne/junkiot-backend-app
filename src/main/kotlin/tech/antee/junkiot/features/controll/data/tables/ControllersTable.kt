@@ -4,7 +4,9 @@ import org.jetbrains.exposed.sql.Table
 import tech.antee.junkiot.features.light_sensor.data.tables.LightSensorValuesTable
 
 object ControllersTable : Table("controllers") {
-    val id = integer("id").autoIncrement()
+    val id = integer("id")
+        .uniqueIndex()
+        .autoIncrement()
     val controllerType = integer("controller_type")
     val name = text(name = "name")
     val isOnline = bool("is_online")

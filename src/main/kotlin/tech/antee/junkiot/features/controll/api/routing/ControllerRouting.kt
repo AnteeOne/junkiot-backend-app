@@ -19,6 +19,9 @@ fun Application.configureControllerRouting() {
         patch("/controllers") {
             controller.updateController(call)
         }
+        delete("/controllers") {
+            controller.deleteController(call)
+        }
         webSocket("/controllers") {
             controller.controllersWebSocket(this)
         }

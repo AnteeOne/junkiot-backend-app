@@ -12,5 +12,7 @@ interface ControllerDao {
 
     suspend fun update(entity: ControllerEntity): Boolean
 
+    suspend fun updateOnline(controllerId: Int, isOnline: Boolean): Boolean
+
     suspend fun delete(entityId: Int): Boolean
 }

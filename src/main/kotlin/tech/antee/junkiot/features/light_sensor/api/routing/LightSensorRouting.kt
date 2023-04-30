@@ -19,5 +19,8 @@ fun Application.configureLightSensorRouting() {
         webSocket("/controllers/light-sensor/values") {
             controller.lightSensorValuesWebSocket(this)
         }
+        webSocket("/controllers/light-sensor/predictions") {
+            controller.lightSensorPredictionsValuesWebSocket(this)
+        }
     }
 }

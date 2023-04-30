@@ -11,12 +11,13 @@ import tech.antee.junkiot.features.controll.api.mappers.ControllerDataMapper
 import tech.antee.junkiot.features.controll.data.daos.ControllerDaoImpl
 import tech.antee.junkiot.features.controll.data.repositories.ControllerRepositoryImpl
 import tech.antee.junkiot.features.controll.domain.repositories.ControllerRepository
+import tech.antee.junkiot.features.di.AppComponent
 
 class ControllControllerImpl {
 
     private val mapper: ControllerDataMapper by lazy { ControllerDataMapper() }
 
-    private val repository: ControllerRepository by lazy { ControllerRepositoryImpl(ControllerDaoImpl()) }
+    private val repository: ControllerRepository by lazy { AppComponent.controllerRepository }
 
     suspend fun getControllers(call: ApplicationCall) {
         val values = repository.getAll().map(mapper::map)
@@ -48,6 +49,21 @@ class ControllControllerImpl {
             }
         } catch (e: ContentTransformationException) {
             call.respond(HttpStatusCode.BadRequest, "Controller isn't valid!")
+        }
+    }
+
+    suspend fun deleteController(call: ApplicationCall) {
+        try {
+            val controllerId = call.request.queryParameters["id"]?.toInt()
+            if (controllerId == null) call.respond(HttpStatusCode.BadRequest, "Controller id isn't valid!")
+            val isDeleted = repository.delete(requireNotNull(controllerId))
+            if (isDeleted) {
+                call.respond(HttpStatusCode.OK, "Controller deleted!")
+            } else {
+                call.respond(HttpStatusCode.BadRequest, "Controller id isn't valid!")
+            }
+        } catch (e: ContentTransformationException) {
+            call.respond(HttpStatusCode.BadRequest, "Unknown error!")
         }
     }
 

@@ -3,7 +3,7 @@ package tech.antee.junkiot.features.light_sensor.api.dtos
 import kotlinx.serialization.Serializable
 
 @Serializable
-class AddLightSensorValueDto(
+data class LightSensorPredictionDto(
     val controllerId: Int,
-    val lx: Int,
+    val lightSensorPredictionValue: String
 )
