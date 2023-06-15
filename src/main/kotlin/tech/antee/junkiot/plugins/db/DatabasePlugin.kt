@@ -7,7 +7,9 @@ import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import tech.antee.junkiot.features.controll.data.tables.ControllersTable
-import tech.antee.junkiot.features.light_sensor.data.tables.LightSensorValuesTable
+import tech.antee.junkiot.features.interfaces.claps_detector.data.tables.ClapsDetectionsValuesTable
+import tech.antee.junkiot.features.interfaces.light_sensor.data.tables.LightSensorValuesTable
+import tech.antee.junkiot.features.interfaces.noise_sensor.data.tables.NoiseDetectionsValuesTable
 import tech.antee.junkiot.plugins.ktx.getConfigString
 
 fun Application.installDatabase() {
@@ -20,6 +22,8 @@ fun Application.installDatabase() {
     transaction(database) {
         SchemaUtils.create(ControllersTable)
         SchemaUtils.create(LightSensorValuesTable)
+        SchemaUtils.create(ClapsDetectionsValuesTable)
+        SchemaUtils.create(NoiseDetectionsValuesTable)
     }
 }
 

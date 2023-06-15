@@ -1,7 +1,8 @@
 package tech.antee.junkiot
 
 import io.ktor.server.application.*
-import io.ktor.server.cio.EngineMain
+import io.ktor.server.cio.*
+import tech.antee.junkiot.features.integrations.home_assistant.installHomeAssistantService
 import tech.antee.junkiot.plugins.db.installDatabase
 import tech.antee.junkiot.plugins.routing.installRouting
 import tech.antee.junkiot.plugins.serialization.installSerialization
@@ -14,4 +15,5 @@ fun Application.module() {
     installSerialization()
     installWebSockets()
     installRouting()
+    installHomeAssistantService()
 }

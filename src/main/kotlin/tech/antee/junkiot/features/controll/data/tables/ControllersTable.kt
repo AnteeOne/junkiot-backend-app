@@ -1,7 +1,7 @@
 package tech.antee.junkiot.features.controll.data.tables
 
 import org.jetbrains.exposed.sql.Table
-import tech.antee.junkiot.features.light_sensor.data.tables.LightSensorValuesTable
+import tech.antee.junkiot.features.interfaces.light_sensor.data.tables.LightSensorValuesTable
 
 object ControllersTable : Table("controllers") {
     val id = integer("id")
